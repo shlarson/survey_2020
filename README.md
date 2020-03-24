@@ -6,7 +6,7 @@ Need to decide what to do with “skipped” answers:
 Example: for identity importance, do we think we could assume a “skip” is the same as “not important at all.” Otherwise NAs are fine... etc.
 
 Questions relevant to us:
-
+```
 race | Race
 
 Q7 | Urban density
@@ -42,3 +42,4 @@ Q101 | Importance of geo region to personal identity
 Q102 | Importance of sexual orientation to personal identity
 
 pew_religimp | Importance of religion (Pew version) (not sure how this is different)
+```
