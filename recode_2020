@@ -1,0 +1,40 @@
+*** importance of identity scales:
+*** Q97 | Importance of race
+*** Q98 | Importance of gender
+*** Q99 | Importance of party id
+*** Q100 | Importance of religious group
+*** Q101 | Importance of geo region
+*** Q102 | Importance of sexual orientation
+
+tab1 Q97 Q98 Q99 Q100 Q101 Q102
+
+generate id_race = .
+replace id_race = 6 if (Q97==?)
+replace id_race = 5 if (Q97==4)
+replace id_race = 4 if (Q97==5)
+replace id_race = 3 if (Q97==6)
+replace id_race = 2 if (Q97==7)
+replace id_race = 1 if (Q97==8)
+replace id_race = 0 if (Q97==9)
+
+tab id_race
+ 
+generate id_race_scale = id_race/6
+
+tab id_race_scale
+
+
+
+**** Examining whether these questions should be in the same scale
+
+pwcorr propfriendsdiff2 propcoworksdiff2, sig
+
+alpha propfriendsdiff2 propcoworksdiff2, std item detail
+
+*** generating the GEI 
+
+generate propdiff=(propfriendsdiff2 + propcoworksdiff2)/2
+
+tab propdiff
+
+histogram propdiff, percent
