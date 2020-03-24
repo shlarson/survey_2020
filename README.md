@@ -6,9 +6,12 @@ Need to decide what to do with “skipped” answers:
 Example: for identity importance, do we think we could assume a “skip” is the same as “not important at all.” Otherwise NAs are fine... etc.
 
 Questions relevant to us:
+
 race | Race
+
 Q7 | Urban density
-Q8 | Gender identity
+
+Q8 | Gender identity \n
 Q9 | Sexual orientation
 religpew | Religion
 pid3 | 3 point party ID
