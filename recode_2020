@@ -9,32 +9,102 @@
 tab1 Q97 Q98 Q99 Q100 Q101 Q102
 
 generate id_race = .
-replace id_race = 6 if (Q97==?)
-replace id_race = 5 if (Q97==4)
-replace id_race = 4 if (Q97==5)
-replace id_race = 3 if (Q97==6)
-replace id_race = 2 if (Q97==7)
-replace id_race = 1 if (Q97==8)
-replace id_race = 0 if (Q97==9)
+replace id_race = 4 if (Q97==1)
+replace id_race = 3 if (Q97==2)
+replace id_race = 2 if (Q97==3)
+replace id_race = 1 if (Q97==4)
+replace id_race = 0 if (Q97==5)
 
 tab id_race
- 
-generate id_race_scale = id_race/6
-
+generate id_race_scale = id_race/5
 tab id_race_scale
 
 
+generate id_gender = .
+replace id_gender = 4 if (Q98==1)
+replace id_gender = 3 if (Q98==2)
+replace id_gender = 2 if (Q98==3)
+replace id_gender = 1 if (Q98==4)
+replace id_gender = 0 if (Q98==5)
 
-**** Examining whether these questions should be in the same scale
+tab id_gender
+generate id_gender_scale = id_gender/5
+tab id_gender_scale
 
-pwcorr propfriendsdiff2 propcoworksdiff2, sig
 
-alpha propfriendsdiff2 propcoworksdiff2, std item detail
+generate id_PID = .
+replace id_PID = 4 if (Q99==1)
+replace id_PID = 3 if (Q99==2)
+replace id_PID = 2 if (Q99==3)
+replace id_PID = 1 if (Q99==4)
+replace id_PID = 0 if (Q99==5)
 
-*** generating the GEI 
+tab id_PID
+generate id_PID_scale = id_PID/5
+tab id_PID_scale
 
-generate propdiff=(propfriendsdiff2 + propcoworksdiff2)/2
 
-tab propdiff
+generate id_religion = .
+replace id_religion = 4 if (Q100==1)
+replace id_religion = 3 if (Q100==2)
+replace id_religion = 2 if (Q100==3)
+replace id_religion = 1 if (Q100==4)
+replace id_religion = 0 if (Q100==5)
 
-histogram propdiff, percent
+tab id_religion
+generate id_religion_scale = id_religion/5
+tab id_religion_scale
+
+
+generate id_geo = .
+replace id_geo = 4 if (Q101==1)
+replace id_geo = 3 if (Q101==2)
+replace id_geo = 2 if (Q101==3)
+replace id_geo = 1 if (Q101==4)
+replace id_geo = 0 if (Q101==5)
+
+tab id_geo
+generate id_geo_scale = id_geo/5
+tab id_geo_scale
+
+
+generate id_orientation = .
+replace id_orientation = 4 if (Q102==1)
+replace id_orientation = 3 if (Q102==2)
+replace id_orientation = 2 if (Q102==3)
+replace id_orientation = 1 if (Q102==4)
+replace id_orientation = 0 if (Q102==5)
+
+tab id_orientation
+generate id_orientation_scale = id_orientation/5
+tab id_orientation_scale
+
+
+generate id_religimp = .
+replace id_religimp = 3 if (pew_religimp==2)
+replace id_religimp = 2 if (pew_religimp==3)
+replace id_religimp = 1 if (pew_religimp==4)
+replace id_religimp = 0 if (pew_religimp==5)
+
+tab id_religimp
+generate id_religimp_scale = id_religimp/4
+tab id_religimp_scale
+
+
+*** Check correlation between our religion Q and the PEW religion Q:
+
+alpha id_religion id_religimp, std item detail
+
+
+*** Check all our own id Qs:
+
+alpha id_race_scale id_gender_scale id_PID_scale id_religion_scale id_geo_scale id_orientation_scale, std item detail
+
+
+*** generating the ID_SCALE 
+
+generate ID_SCALE=(id_race_scale + id_gender_scale + id_PID_scale + id_religion_scale + id_geo_scale + id_orientation_scale)/6
+
+tab ID_SCALE
+
+histogram ID_SCALE, percent
