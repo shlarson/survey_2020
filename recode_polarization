@@ -13,7 +13,7 @@
 
 generate dem_feelth = .
 replace dem_feelth = Q44
-replace demfeelth = . if (Q44 == 999)
+replace dem_feelth = . if (Q44 == 999)
 tab dem_feelth
 
 generate dem_feelth_scale = dem_feelth/100
