@@ -9,3 +9,14 @@
 *** Q57 | How unpatriotic are supporters of opposite political party
 *** Q111 | How open-minded are supporters of opposite political party
 *** Q110 | How smart are supporters of opposite political party
+
+
+generate dem_feelth = .
+replace dem_feelth = Q44
+replace demfeelth = . if (Q44 == 999)
+tab dem_feelth
+
+generate dem_feelth_scale = demfeelth/100
+
+tab demfeelth2
+
