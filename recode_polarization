@@ -16,8 +16,8 @@ replace dem_feelth = Q44
 replace demfeelth = . if (Q44 == 999)
 tab dem_feelth
 
-generate dem_feelth_scale = demfeelth/100
+generate dem_feelth_scale = dem_feelth/100
 
-tab demfeelth2
+tab dem_feelth_scale
 
 
