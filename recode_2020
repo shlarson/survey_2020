@@ -16,7 +16,7 @@ replace id_race = 1 if (Q97==4)
 replace id_race = 0 if (Q97==5)
 
 tab id_race
-generate id_race_scale = id_race/5
+generate id_race_scale = id_race/4
 tab id_race_scale
 
 
@@ -28,7 +28,7 @@ replace id_gender = 1 if (Q98==4)
 replace id_gender = 0 if (Q98==5)
 
 tab id_gender
-generate id_gender_scale = id_gender/5
+generate id_gender_scale = id_gender/4
 tab id_gender_scale
 
 
@@ -40,7 +40,7 @@ replace id_PID = 1 if (Q99==4)
 replace id_PID = 0 if (Q99==5)
 
 tab id_PID
-generate id_PID_scale = id_PID/5
+generate id_PID_scale = id_PID/4
 tab id_PID_scale
 
 
@@ -52,7 +52,7 @@ replace id_religion = 1 if (Q100==4)
 replace id_religion = 0 if (Q100==5)
 
 tab id_religion
-generate id_religion_scale = id_religion/5
+generate id_religion_scale = id_religion/4
 tab id_religion_scale
 
 
@@ -64,7 +64,7 @@ replace id_geo = 1 if (Q101==4)
 replace id_geo = 0 if (Q101==5)
 
 tab id_geo
-generate id_geo_scale = id_geo/5
+generate id_geo_scale = id_geo/4
 tab id_geo_scale
 
 
@@ -76,7 +76,7 @@ replace id_orientation = 1 if (Q102==4)
 replace id_orientation = 0 if (Q102==5)
 
 tab id_orientation
-generate id_orientation_scale = id_orientation/5
+generate id_orientation_scale = id_orientation/4
 tab id_orientation_scale
 
 
@@ -87,7 +87,7 @@ replace id_religimp = 1 if (pew_religimp==4)
 replace id_religimp = 0 if (pew_religimp==5)
 
 tab id_religimp
-generate id_religimp_scale = id_religimp/4
+generate id_religimp_scale = id_religimp/3
 tab id_religimp_scale
 
 
