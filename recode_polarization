@@ -20,4 +20,58 @@ generate dem_feelth_scale = dem_feelth/100
 
 tab dem_feelth_scale
 
+*** from ryan:
+***affective polarization questions
 
+
+tab q57
+tab q111
+tab q110
+summarize q57 q111 q110
+
+generate unpatriotic = .
+replace unpatriotic = 0 if (q57==1)
+replace unpatriotic = 1 if (q57==2)
+replace unpatriotic = 2 if (q57==3)
+replace unpatriotic = 3 if (q57==4)
+replace unpatriotic = 4 if (q57==5)
+
+generate unpatriotic_scale=unpatriotic/4
+
+tab unpatriotic_scale
+
+generate openminded = .
+replace openminded = 4 if (q111==1)
+replace openminded = 3 if (q111==2)
+replace openminded = 2 if (q111==3)
+replace openminded = 1 if (q111==4)
+replace openminded = 0 if (q111==5)
+
+generate openminded_scale=openminded/4
+
+tab openminded_scale
+
+generate smart = .
+replace smart = 4 if (q110==1)
+replace smart = 3 if (q110==2)
+replace smart = 2 if (q110==3)
+replace smart = 1 if (q110==4)
+replace smart = 0 if (q110==5)
+
+generate smart_scale=smart/4
+
+tab smart_scale
+
+***running correlations of these
+
+pwcorr unpatriotic_scale openminded_scale smart_scale
+
+alpha unpatriotic_scale openminded_scale smart_scale
+
+***not sure if we should do a index with all of them, but here it is
+
+generate API=(unpatriotic_scale+openminded_scale+smart_scale)/3
+
+tab API
+
+histogram API, percent
