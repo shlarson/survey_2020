@@ -81,10 +81,10 @@ tab id_orientation_scale
 
 
 generate id_religimp = .
-replace id_religimp = 3 if (pew_religimp==2)
-replace id_religimp = 2 if (pew_religimp==3)
-replace id_religimp = 1 if (pew_religimp==4)
-replace id_religimp = 0 if (pew_religimp==5)
+replace id_religimp = 3 if (pew_religimp==1)
+replace id_religimp = 2 if (pew_religimp==2)
+replace id_religimp = 1 if (pew_religimp==3)
+replace id_religimp = 0 if (pew_religimp==4)
 
 tab id_religimp
 generate id_religimp_scale = id_religimp/3
