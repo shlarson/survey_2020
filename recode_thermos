@@ -1,0 +1,33 @@
+*** creating affective polarization scales using thermometers
+***
+*** pid3 | 3-point party ID
+***   1=Dem, 2=Rep, 3=Ind, 4=Other, 5=Not Sure
+*** pid7 | 7-point party ID
+***   1-7=Strong Dem to Strong Rep, 4=Independent, 8=Not Sure
+*** Q44 | rate Dems thermometer
+*** Q45 | rate Reps thermometer
+
+tab1 Q44 Q45
+
+generate demfeelth = .
+replace demfeelth = Q44
+replace demfeelth = . if (Q44 == 999)
+tab demfeelth
+
+generate demfeelth_scale=demfeelth/100
+tab demfeelth_scale
+
+generate repfeelth = .
+replace repfeelth = Q45
+replace demfeelth = . if (Q45 == 999)
+tab repfeelth
+
+generate repfeelth_scale=repfeelth/100
+tab repfeelth_scale
+
+
+*** subtracting thermometers
+
+generate AP_th = demfeelth_scale - repfeelth_scale
+tab AP_th
+histogram AP_th
