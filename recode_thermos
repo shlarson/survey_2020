@@ -48,3 +48,11 @@ replace rep_AP_demth = demfeelth_scale if (pid3 == 2)
 
 tab rep_AP_demth
 histogram rep_AP_demth
+
+***
+*** MAKE SURE TO RUN the API SCALE DO FILE 
+*** 
+
+alpha unpatriotic_scale openminded_scale smart_scale dem_AP_repth, std item detail
+
+
