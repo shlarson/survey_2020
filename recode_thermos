@@ -1,4 +1,4 @@
-*** creating affective polarization scales using thermometers
+*** creating affective polarization scales using thermometers. Hopefully.
 ***
 *** pid3 | 3-point party ID
 ***   1=Dem, 2=Rep, 3=Ind, 4=Other, 5=Not Sure
@@ -32,6 +32,11 @@ generate AP_th = demfeelth_scale - repfeelth_scale
 tab AP_th
 histogram AP_th
 
+*** this doesn't do what I imagine; the Affective Polarization measure (one thermometer minus the other) gives us a -1 to 1 scale which seems odd.
+generate AP_th_scale = (AP_th + 1) / 2
+histogram AP_th_scale
+*** end 
+
 *** BUT WAIT we only need out-group Affective polarization
 tab pid3
 
@@ -52,7 +57,7 @@ histogram rep_AP_demth
 ***
 *** MAKE SURE TO RUN the API SCALE DO FILE 
 *** 
+tab unpatriotic_scale
 
-alpha unpatriotic_scale openminded_scale smart_scale dem_AP_repth, std item detail
-
+alpha unpatriotic_scale openminded_scale smart_scale AP_th_scale, std item detail
 
