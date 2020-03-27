@@ -31,3 +31,20 @@ tab repfeelth_scale
 generate AP_th = demfeelth_scale - repfeelth_scale
 tab AP_th
 histogram AP_th
+
+*** BUT WAIT we only need out-group Affective polarization
+tab pid3
+
+*** pid3==1 gives us how Dems rate Reps
+generate dem_AP_repth
+replace dem_AP_repth = repfeelth_scale if (pid3 == 1)
+
+tab dem_AP_repth
+histogram dem_AP_repth
+
+*** pid3==2 gives us how Reps rate Dems
+generate rep_AP_demth
+replace rep_AP_demth = demfeelth_scale if (pid3 == 2)
+
+tab rep_AP_demth
+histogram rep_AP_demth
