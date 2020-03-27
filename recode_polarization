@@ -24,39 +24,39 @@ tab dem_feelth_scale
 ***affective polarization questions
 
 
-tab q57
-tab q111
-tab q110
-summarize q57 q111 q110
+tab Q57
+tab Q111
+tab Q110
+summarize Q57 Q111 Q110
 
 generate unpatriotic = .
-replace unpatriotic = 0 if (q57==1)
-replace unpatriotic = 1 if (q57==2)
-replace unpatriotic = 2 if (q57==3)
-replace unpatriotic = 3 if (q57==4)
-replace unpatriotic = 4 if (q57==5)
+replace unpatriotic = 0 if (Q57==1)
+replace unpatriotic = 1 if (Q57==2)
+replace unpatriotic = 2 if (Q57==3)
+replace unpatriotic = 3 if (Q57==4)
+replace unpatriotic = 4 if (Q57==5)
 
 generate unpatriotic_scale=unpatriotic/4
 
 tab unpatriotic_scale
 
 generate openminded = .
-replace openminded = 4 if (q111==1)
-replace openminded = 3 if (q111==2)
-replace openminded = 2 if (q111==3)
-replace openminded = 1 if (q111==4)
-replace openminded = 0 if (q111==5)
+replace openminded = 4 if (Q111==1)
+replace openminded = 3 if (Q111==2)
+replace openminded = 2 if (Q111==3)
+replace openminded = 1 if (Q111==4)
+replace openminded = 0 if (Q111==5)
 
 generate openminded_scale=openminded/4
 
 tab openminded_scale
 
 generate smart = .
-replace smart = 4 if (q110==1)
-replace smart = 3 if (q110==2)
-replace smart = 2 if (q110==3)
-replace smart = 1 if (q110==4)
-replace smart = 0 if (q110==5)
+replace smart = 4 if (Q110==1)
+replace smart = 3 if (Q110==2)
+replace smart = 2 if (Q110==3)
+replace smart = 1 if (Q110==4)
+replace smart = 0 if (Q110==5)
 
 generate smart_scale=smart/4
 
@@ -75,3 +75,43 @@ generate API=(unpatriotic_scale+openminded_scale+smart_scale)/3
 tab API
 
 histogram API, percent
+
+*** SPLIT OUR Qs BY PID
+*** unpatriotic
+generate unpatriotic_DEM_answer = unpatriotic_scale if (pid3 == 1)
+tab unpatriotic_DEM_answer
+histogram unpatriotic_DEM_answer
+
+generate unpatriotic_REP_answer = unpatriotic_scale if (pid3 == 2)
+tab unpatriotic_REP_answer
+histogram unpatriotic_REP_answer
+
+generate unpatriotic_IO_answer = unpatriotic_scale if inlist(pid3,3,4,5)
+tab unpatriotic_IO_answer
+histogram unpatriotic_IO_answer
+
+*** openminded
+generate openminded_DEM_answer = openminded_scale if (pid3 == 1)
+tab openminded_DEM_answer
+histogram openminded_DEM_answer
+
+generate openminded_REP_answer = openminded_scale if (pid3 == 2)
+tab openminded_REP_answer
+histogram openminded_REP_answer
+
+generate openminded_IO_answer = openminded_scale if inlist(pid3,3,4,5)
+tab openminded_IO_answer
+histogram openminded_IO_answer
+
+*** smart
+generate smart_DEM_answer = smart_scale if (pid3 == 1)
+tab smart_DEM_answer
+histogram smart_DEM_answer
+
+generate smart_REP_answer = smart_scale if (pid3 == 2)
+tab smart_REP_answer
+histogram smart_REP_answer
+
+generate smart_IO_answer = smart_scale if inlist(pid3,3,4,5)
+tab smart_IO_answer
+histogram smart_IO_answer
