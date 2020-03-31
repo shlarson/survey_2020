@@ -4,6 +4,12 @@
 
 Need to decide what to do with “skipped” answers:
 Example: for identity importance, do we think we could assume a “skip” is the same as “not important at all.” Otherwise NAs are fine... etc.
+```
+Run the .do files in order:
+3Qs
+thermos
+id
+```
 
 Questions relevant to us:
 ```
