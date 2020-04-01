@@ -1,3 +1,5 @@
+*** run scales_2020_3Qs.do before this file
+
 *** creating affective polarization scales using thermometers. Hopefully.
 ***
 *** pid3 | 3-point party ID
@@ -19,45 +21,70 @@ tab demfeelth_scale
 
 generate repfeelth = .
 replace repfeelth = Q45
-replace demfeelth = . if (Q45 == 999)
+replace repfeelth = . if (Q45 == 999)
 tab repfeelth
 
 generate repfeelth_scale=repfeelth/100
 tab repfeelth_scale
 
 
-*** subtracting thermometers
+*** subtracting thermometers for Standard Affective Polarization
 
 generate AP_th = demfeelth_scale - repfeelth_scale
 tab AP_th
 histogram AP_th
 
-*** this doesn't do what I imagine; the Affective Polarization measure (one thermometer minus the other) gives us a -1 to 1 scale which seems odd.
-generate AP_th_scale = (AP_th + 1) / 2
-histogram AP_th_scale
-*** end 
 
-*** BUT WAIT we only need out-group Affective polarization
-tab pid3
+*** create out-party thermometers by pid7
+*** Dems = 1,2,3
+*** Reps = 5,6,7
+*** Ind + Not Sure = 4,8
+tab pid7
 
-*** pid3==1 gives us how Dems rate Reps
-generate dem_AP_repth
-replace dem_AP_repth = repfeelth_scale if (pid3 == 1)
+*** how Dems rate Reps
+generate dem_AP_repth = .
+replace dem_AP_repth = repfeelth_scale if (pid7 == 1)|(pid7 == 2)|(pid7 == 3)
 
 tab dem_AP_repth
 histogram dem_AP_repth
 
-*** pid3==2 gives us how Reps rate Dems
-generate rep_AP_demth
-replace rep_AP_demth = demfeelth_scale if (pid3 == 2)
-
+*** how Reps rate Dems
+generate rep_AP_demth = .
+replace rep_AP_demth = demfeelth_scale if (pid7 == 5)|(pid7 == 6)|(pid7 == 7)
 tab rep_AP_demth
 histogram rep_AP_demth
 
+*** how Independent / Not Sure rate Dems
+generate ind_AP_demth = .
+replace ind_AP_demth = demfeelth_scale if (pid7 == 4)|(pid7 == 8)
+tab ind_AP_demth
+histogram ind_AP_demth
+
+*** how Independent / Not Sure rate Reps
+generate ind_AP_repth = .
+replace ind_AP_repth = repfeelth_scale if (pid7 == 4)|(pid7 == 8)
+tab ind_AP_repth
+histogram ind_AP_repth
+
+*** how Independent / Not Sure rate the parties
+generate ind_AP_partyth = .
+replace ind_AP_partyth = (ind_AP_demth + ind_AP_repth)/2
+tab ind_AP_partyth
+histogram ind_AP_partyth
+
+
 ***
-*** MAKE SURE TO RUN the API SCALE DO FILE 
-*** 
-tab unpatriotic_scale
+*** MAKE SURE TO RUN scales_2020_3Qs.do before this file
+***
 
-alpha unpatriotic_scale openminded_scale smart_scale AP_th_scale, std item detail
+pwcorr threeQs AP_th dem_AP_repth rep_AP_demth ind_AP_partyth ind_AP_demth ind_AP_repth, sig
 
+*** running correlations for each individual Q has some interesting stuff:
+
+pwcorr unpatriotic_scale AP_th dem_AP_repth rep_AP_demth ind_AP_partyth ind_AP_demth ind_AP_repth, sig
+
+pwcorr openminded_scale AP_th dem_AP_repth rep_AP_demth ind_AP_partyth ind_AP_demth ind_AP_repth, sig
+
+pwcorr smart_scale AP_th dem_AP_repth rep_AP_demth ind_AP_partyth ind_AP_demth ind_AP_repth, sig
+
+alpha AP_th threeQs unpatriotic_scale, std item detail
