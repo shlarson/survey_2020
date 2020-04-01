@@ -93,8 +93,10 @@ tab id_religimp_scale
 
 *** Check correlation between our religion Q and the PEW religion Q:
 
-alpha id_religion id_religimp, std item detail
+pwcorr id_religion id_religimp, sig
 
+
+********** Grouping the ID Qs together for no real reason:
 
 *** Check all our own id Qs:
 
