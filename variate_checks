@@ -1,0 +1,69 @@
+*** Comparing means on your key variable among various demographic groups
+
+*** the ID Scales:
+* id_race_scale
+* id_gender_scale
+* id_PID_scale
+* id_religion_scale and/or id_religimp_scale
+* id_geo_scale
+* id_orientation_scale
+
+
+*** We need to check to see if demographics influence Strength of ID response:
+
+*** race | Race
+tab race
+oneway id_race_scale race, t
+
+*** Q8 | gender * 1=women 0=men
+tab Q8
+generate women = .
+replace women = 1 if (Q8 == 2)
+replace women = 1 if (Q8 == 4)
+replace women = 0 if (Q8 == 1)
+replace women = 0 if (Q8 == 3)
+
+tab women
+ttest id_gender_scale, by (women) 
+
+*** pid7 | Party ID * 1=Dems 2=Reps 3=Ind+Not Sure
+tab pid7
+generate pidsimple = .
+replace pidsimple = 1 if (pid7==1)|(pid7==2)|(pid7==3)
+replace pidsimple = 2 if (pid7==5)|(pid7==6)|(pid7==7)
+replace pidsimple = 3 if (pid7==4)|(pid7==8)
+
+tab pidsimple
+oneway id_PID_scale pidsimple, t bon sid sch
+
+*** religpew | Religion
+tab religpew
+
+oneway id_religion_scale religpew, t
+
+*** Q7 | Urban density
+tab Q7
+generate geo = Q7
+oneway id_geo_scale geo, t
+
+*** Q9 | Sexual Orientation
+tab Q9
+generate orientation = Q9
+replace orientation = . if (Q9==4)|(Q9==5)|(Q9==8)
+
+tab orientation
+oneway id_orientation_scale orientation, t
+
+
+*** Then we can check to see if the same demographics affect Affective Polarization
+oneway AP_th race, tab
+oneway AP_th women, tab
+oneway AP_th pidsimple, tab
+oneway AP_th religpew, tab
+oneway AP_th geo, tab
+oneway AP_th orientation, tab
+
+
+*** this is the fine details:
+twoway lfitci id_PID_scale women, by(pidsimple)
+
