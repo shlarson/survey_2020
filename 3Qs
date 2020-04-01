@@ -1,0 +1,111 @@
+*** "affective polarization" questions == "the 3Qs"
+*** which aren't really AP, they're more like "out party disdain"
+
+*** Q44 | Thermometer - How would you rate Democrats
+*** Q45 | Thermometer - How would you rate Republicans
+*** Q57 | How unpatriotic are supporters of opposite political party
+*** Q111 | How open-minded are supporters of opposite political party
+*** Q110 | How smart are supporters of opposite political party
+
+tab Q57
+tab Q111
+tab Q110
+summarize Q57 Q111 Q110
+
+*** unpatriotic 1=extremely unpatriotic
+generate unpatriotic = .
+replace unpatriotic = 0 if (Q57==1)
+replace unpatriotic = 1 if (Q57==2)
+replace unpatriotic = 2 if (Q57==3)
+replace unpatriotic = 3 if (Q57==4)
+replace unpatriotic = 4 if (Q57==5)
+
+generate unpatriotic_scale=unpatriotic/4
+
+tab unpatriotic_scale
+
+*** openminded 1=extremely openminded
+generate openminded = .
+replace openminded = 4 if (Q111==1)
+replace openminded = 3 if (Q111==2)
+replace openminded = 2 if (Q111==3)
+replace openminded = 1 if (Q111==4)
+replace openminded = 0 if (Q111==5)
+
+generate openminded_scale=openminded/4
+
+tab openminded_scale
+
+*** smart 1=extremely smart
+generate smart = .
+replace smart = 4 if (Q110==1)
+replace smart = 3 if (Q110==2)
+replace smart = 2 if (Q110==3)
+replace smart = 1 if (Q110==4)
+replace smart = 0 if (Q110==5)
+
+generate smart_scale=smart/4
+
+tab smart_scale
+
+*** running correlations of the 3Qs
+
+pwcorr unpatriotic_scale openminded_scale smart_scale, sig
+
+alpha unpatriotic_scale openminded_scale smart_scale, std item detail
+
+*** Index of 3Qs measuring out party disdain
+
+generate threeQs = (unpatriotic_scale + openminded_scale + smart_scale)/3
+
+tab threeQs
+
+summarize threeQs
+histogram threeQs, percent
+
+
+*** SPLIT OUR Qs BY pid7
+*** Dems = 1,2,3
+*** Reps = 5,6,7
+*** Ind + Not Sure = 4,8
+tab pid7
+
+*** unpatriotic
+generate unpatriotic_DEM_answer = unpatriotic_scale if (pid7 == 1)|(pid7 == 2)|(pid7 == 3)
+tab unpatriotic_DEM_answer
+histogram unpatriotic_DEM_answer
+
+generate unpatriotic_REP_answer = unpatriotic_scale if (pid7 == 5)|(pid7 == 6)|(pid7 == 7)
+tab unpatriotic_REP_answer
+histogram unpatriotic_REP_answer
+
+generate unpatriotic_IO_answer = unpatriotic_scale if (pid7 == 4)|(pid7 == 8)
+tab unpatriotic_IO_answer
+histogram unpatriotic_IO_answer
+
+*** openminded
+generate openminded_DEM_answer = openminded_scale if (pid7 == 1)|(pid7 == 2)|(pid7 == 3)
+tab openminded_DEM_answer
+histogram openminded_DEM_answer
+
+generate openminded_REP_answer = openminded_scale if (pid7 == 5)|(pid7 == 6)|(pid7 == 7)
+tab openminded_REP_answer
+histogram openminded_REP_answer
+
+generate openminded_IO_answer = openminded_scale if (pid7 == 4)|(pid7 == 8)
+tab openminded_IO_answer
+histogram openminded_IO_answer
+
+*** smart
+generate smart_DEM_answer = smart_scale if (pid7 == 1)|(pid7 == 2)|(pid7 == 3)
+tab smart_DEM_answer
+histogram smart_DEM_answer
+
+generate smart_REP_answer = smart_scale if (pid7 == 5)|(pid7 == 6)|(pid7 == 7)
+tab smart_REP_answer
+histogram smart_REP_answer
+
+generate smart_IO_answer = smart_scale if (pid7 == 4)|(pid7 == 8)
+tab smart_IO_answer
+histogram smart_IO_answer
+
